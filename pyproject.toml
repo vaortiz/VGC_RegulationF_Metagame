@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "reg-f"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.26.4"
+sqlalchemy = "^2.0.29"
+pokepastes-scraper = "^0.2.2"
+pandas = "^2.2.1"
+bs4 = "^0.0.2"
+requests = "^2.31.0"
+selenium = "^4.19.0"
+urllib3 = "^2.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
