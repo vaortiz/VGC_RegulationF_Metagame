@@ -158,4 +158,8 @@ Archetype = kmeds.assignments
 
 dbs = dbscan(dist_matrix, 0.29, metric = nothing ,  min_neighbors = 3)
 Archetype = dbs.assignments
-CSV.write("jacc_matrix_fix.csv", DataFrame(Tables.table(dist_matrix)))
+
+archetype_fix= @chain team_list begin
+    @bind_cols(_, DataFrame(Archetype=Archetype))
+end
+CSV.write("archetype.csv", archetype_fix)
