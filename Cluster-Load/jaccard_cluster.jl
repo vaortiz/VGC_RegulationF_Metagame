@@ -159,7 +159,7 @@ b=@chain team_list begin
 end
 
 
-KOG_IDs=DataFrame(DBInterface.execute(con, "SELECT ID
+KOG=DataFrame(DBInterface.execute(con, "SELECT ID
 FROM (
     SELECT ID, COUNT(CASE WHEN Pokemon = 'Kingambit' THEN 1 END) AS Kingambit_count,
                  COUNT(CASE WHEN Pokemon = 'Gouging Fire' THEN 1 END) AS GougingFire_count,
@@ -174,7 +174,7 @@ WHERE Kingambit_count = 1 AND GougingFire_count = 1 AND OgerponWellspring_count 
 "))
 
 
-Japan_Balance_IDs=DataFrame(DBInterface.execute(con, "SELECT ID
+Japan_Balance=DataFrame(DBInterface.execute(con, "SELECT ID
 FROM (
     SELECT ID, COUNT(CASE WHEN Pokemon = 'Urshifu-Rapid-Strike' THEN 1 END) AS Kingambit_count,
                  COUNT(CASE WHEN Pokemon = 'Rillaboom' THEN 1 END) AS GougingFire_count,
@@ -190,7 +190,7 @@ FROM (
 WHERE Kingambit_count = 1 AND GougingFire_count = 1 AND OgerponWellspring_count = 1 AND Pao_count = 1 AND Nite_count = 0 AND Entei_count = 0;
 "))
 
-FWG_TR_IDs=DataFrame(DBInterface.execute(con, """
+FWG_TR=DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID,
@@ -208,7 +208,7 @@ FROM (
 WHERE Urshifu_count = 1 AND Rillaboom_count = 1 AND Incineroar_count = 1
 """))
 
-TW_Offense_IDs=DataFrame(DBInterface.execute(con, "SELECT ID
+FUT_Offense=DataFrame(DBInterface.execute(con, "SELECT ID
 FROM (
     SELECT ID,
            COUNT(CASE WHEN Pokemon = 'Tornadus' THEN 1 END) AS Kingambit_count,
@@ -228,7 +228,7 @@ WHERE Kingambit_count = 1
 );
 "))
 
-DozoLu_IDs=DataFrame(DBInterface.execute(con, "SELECT ID
+DozoLu=DataFrame(DBInterface.execute(con, "SELECT ID
 FROM (
     SELECT ID, COUNT(CASE WHEN Pokemon = 'Dondozo' THEN 1 END) AS Kingambit_count,
                  COUNT(CASE WHEN Pokemon = 'Ting-Lu' THEN 1 END) AS GougingFire_count
@@ -240,7 +240,9 @@ WHERE Kingambit_count = 1 AND GougingFire_count = 1;
 "))
 
 
-DozoTatsu_IDs=DataFrame(DBInterface.execute(con, """
+
+
+DozoTatsu=DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID, 
@@ -253,7 +255,7 @@ FROM (
 WHERE Dondozo_count = 1 AND Tatsugiri_count = 1
 """))
 
-Gholdengo_HO_IDs = DataFrame(DBInterface.execute(con, """
+Gholdengo_Offense = DataFrame(DBInterface.execute(con, """
 SELECT DISTINCT ID
 FROM (
     SELECT ID, 
@@ -272,7 +274,7 @@ FROM (
 WHERE Gholdengo_count = 1 AND Tornadus_count = 1;
 """))
 
-Spanish_Balance_IDs = DataFrame(DBInterface.execute(con, """
+Raging_Balance = DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID,
@@ -281,6 +283,7 @@ FROM (
            SUM(CASE WHEN Pokemon = 'Raging Bolt' AND Objeto = 'Assault Vest' THEN 1 ELSE 0 END) AS Raging_Bolt_count,
            SUM(CASE WHEN Pokemon = 'Roaring Moon' THEN 1 ELSE 0 END) AS Roaring_count
     FROM team_ots
+    WHERE Pokemon IN ('Incineroar', 'Amoonguss', 'Raging Bolt' , 'Roaring Moon')
     GROUP BY ID
 ) AS subquery
 WHERE Incineroar_count = 1 AND Amoonguss_count = 1 AND Raging_Bolt_count = 1 AND Roaring_count = 0;
@@ -288,7 +291,7 @@ WHERE Incineroar_count = 1 AND Amoonguss_count = 1 AND Raging_Bolt_count = 1 AND
 
 
 
-Rain_Offense_IDs = DataFrame(DBInterface.execute(con, """
+Rain_Offense = DataFrame(DBInterface.execute(con, """
 SELECT DISTINCT ID
 FROM (
     SELECT ID, 
@@ -303,7 +306,7 @@ WHERE Dondozo_count = 1 AND Tatsugiri_count = 1 AND Urshifu_count =1
 """))
 
 
-Pao_Prio_IDs = DataFrame(DBInterface.execute(con, """
+Pao_Prio = DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID,
@@ -324,7 +327,7 @@ FROM (
 WHERE Urshifu_count = 1;
 """))
 
-Psyspam_TW_IDs = DataFrame(DBInterface.execute(con, """
+Psyspam_TW = DataFrame(DBInterface.execute(con, """
 SELECT DISTINCT ID
 FROM (
     SELECT ID, 
@@ -338,7 +341,7 @@ FROM (
 WHERE Dondozo_count = 1 AND Tatsugiri_count = 1 AND Urshifu_count =1
 """))
 
-TR_Balance_IDs = DataFrame(DBInterface.execute(con, """
+TR_Balance = DataFrame(DBInterface.execute(con, """
 SELECT DISTINCT ID
 FROM (
     SELECT ID,
@@ -353,7 +356,7 @@ WHERE Amoonguss_count = 1 AND Incineroar_count = 1
 AND (First_group_count >= 1 AND Second_group_count >= 1);"""))
 
 
-HardTR_IDs = DataFrame(DBInterface.execute(con, """
+HardTR = DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID
@@ -369,7 +372,7 @@ WHERE ID IN (
     HAVING COUNT(DISTINCT Pokemon) = 2
 );"""))
 
-TurboMoona_IDs = DataFrame(DBInterface.execute(con, """
+TurboMoona = DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID,
@@ -383,7 +386,7 @@ WHERE Tornadus_count >= 1 AND Ursaluna_Bloodmoon_count >= 1 AND Farigiraf_count 
 
 """))
 
-SetUp_DD_IDs = DataFrame(DBInterface.execute(con, """
+Roaring_SetUp = DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID
@@ -404,7 +407,7 @@ WHERE ID IN (
 
 """))
 
-Hail_Offense_IDs = DataFrame(DBInterface.execute(con, """
+Hail_Offense = DataFrame(DBInterface.execute(con, """
 SELECT ID
 FROM (
     SELECT ID,
@@ -423,14 +426,17 @@ WHERE Ninetales_Alola_present = 1
 """))
 
 
-df_names = ["Hail_Offense_IDs", "KOG_IDs", "Japan_Balance_IDs", "FWG_TR_IDs", 
-            "TW_Offense_IDs", "DozoLu_IDs", "DozoTatsu_IDs", "Gholdengo_HO_IDs", 
-            "Spanish_Balance_IDs", "Rain_Offense_IDs", "Pao_Prio_IDs", 
-            "Psyspam_TW_IDs", "TR_Balance_IDs", "HardTR_IDs", "TurboMoona_IDs", "SetUp_DD_IDs"]
+df_names = ["Hail_Offense", "KOG", "Japan_Balance", "FWG_TR", 
+            "FUT_Offense", "DozoLu", "DozoTatsu", "Gholdengo_Offense", 
+            "Raging_Balance", "Rain_Offense", "Pao_Prio", 
+            "Psyspam_TW", "TR_Balance", "HardTR", "TurboMoona", "Roaring_SetUp"]
 
 merged_df = DataFrame(ID = String[], DF_Name = String[])
 merged_df
 
+merged_df = @chain merged_df begin
+    @distinct ID
+end
 
 # Fusiona todos los DataFrames en uno solo
 for df_name in df_names
